@@ -6,3 +6,5 @@
 *.class
 build.xml
 manifest.mf
+/lib/
+README.md
