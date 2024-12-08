@@ -1,0 +1,39 @@
+<languages>
+    <language value="english">
+        <translated value="hello_world">
+            <value>Hello, World!</value>
+        </translated>
+        
+        <translated value="presentation">
+            <value>My name is $1!</value>
+        </translated>
+        
+        <translated value="multi_line_message">
+            <value>
+                Welcome to our platform! 
+                We are excited to have you here, $1. 
+                If you have any questions, feel free to reach out to our support team at $2.
+                Let's make this journey a great success!
+            </value>
+        </translated>
+    </language>
+    
+    <language value="portuguese">
+        <translated value="hello_world">
+            <value>Olá, mundo!</value>
+        </translated>
+        
+        <translated value="presentation">
+            <value>O meu nome é $1!</value>
+        </translated>
+        
+        <translated value="multi_line_message">
+            <value>
+                Bem-vindo à nossa plataforma! 
+                Estamos empolgados em tê-lo aqui, $1. 
+                Se tiver alguma dúvida, sinta-se à vontade para entrar em contato com nossa equipe de suporte em $2.
+                Vamos fazer desta jornada um grande sucesso!
+            </value>
+        </translated>
+    </language>
+</languages>

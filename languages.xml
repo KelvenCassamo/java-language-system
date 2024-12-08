@@ -1,0 +1,29 @@
+<nbprogenie>
+    <language value="english">
+        <translated value="hello_world">
+            <value>Hello, World!</value>
+        </translated>
+        
+        <translated value="presentation">
+            <value>My name is $1!</value>
+        </translated>
+        
+        <translated value="multi_line_message">
+            <value>Loren ipsum dolor Loren ipsum dolor Loren ipsum dolor Loren ipsum dolor.
+                $1 caassamo $2
+                cassamo sudio!
+            </value>
+        </translated>
+      
+    </language>
+    
+    <language value="portuguese">
+        <translated value="hello_world">
+            <value>Olá, mundo!</value>
+        </translated>
+        <translated value="presentation">
+            <value>O meu nome é $1!</value>
+        </translated>
+    </language>
+
+</nbprogenie>
