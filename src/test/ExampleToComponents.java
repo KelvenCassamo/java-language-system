@@ -1,6 +1,6 @@
 package test;
 
-import mz.cassamo.ls.LanguageSystem;
+import mz.cassamo.jls.LanguageSystem;
 
 import javax.swing.*;
 import java.awt.*;

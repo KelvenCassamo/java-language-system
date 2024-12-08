@@ -1,4 +1,4 @@
-package mz.cassamo.ls;
+package mz.cassamo.jls;
 
 import java.awt.Component;
 import java.lang.reflect.InvocationTargetException;

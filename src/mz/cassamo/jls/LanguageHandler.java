@@ -1,4 +1,4 @@
-package mz.cassamo.ls;
+package mz.cassamo.jls;
 
 import java.util.HashMap;
 import java.util.Map;

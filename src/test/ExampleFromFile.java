@@ -1,6 +1,6 @@
 package test;
 
-import mz.cassamo.ls.LanguageSystem;
+import mz.cassamo.jls.LanguageSystem;
 
 /**
  * Using LanguageSystem from an XML file.
@@ -30,5 +30,6 @@ public class ExampleFromFile {
         System.out.println("Current language: " + LanguageSystem.getCurrentLanguage());
         // Display translation for "hello_world" in portugues
         System.out.println(LanguageSystem.get("hello_world"));
+        
     }
 }

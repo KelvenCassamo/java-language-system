@@ -1,4 +1,4 @@
-package mz.cassamo.ls;
+package mz.cassamo.jls;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
