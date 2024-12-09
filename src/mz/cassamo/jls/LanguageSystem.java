@@ -27,8 +27,9 @@ import java.util.HashMap;
  */
 public class LanguageSystem {
 
-    ///LanguageReader
+ 
     private static final ArrayList<HashMap<String, Object>> appliedComponents = new ArrayList<>();
+    private static final ArrayList<HashMap<String, Object>> appliedWidgets = new ArrayList<>();
     private static boolean debug = false;
     private static LanguageSystemInterface li;
 
@@ -53,7 +54,6 @@ public class LanguageSystem {
     public static void addLanguageSystemInterface(LanguageSystemInterface _li) {
         li = _li;
     }
-
 
     /**
      * Initializes the language system from a specified file.
@@ -99,6 +99,19 @@ public class LanguageSystem {
         }
         return langs;
     }
+    
+    /**
+     * Gets a list of available translations for specific language.
+     *@param language the language to be used. 
+     * @return a list of translations.
+     */
+    public static ArrayList<String> getTranslationKeys(String language) {
+        ArrayList<String> trans = new ArrayList<>();
+        for (String string : LanguageReader.getLanguages().get(language).keySet()) {
+            trans.add(string);
+        }
+        return trans;
+    }
 
     /**
      * Sets the current language of the system and triggers automatic
@@ -129,6 +142,24 @@ public class LanguageSystem {
         autoInsertLanguage();
     }
 
+    /**
+     * Automatically translates a single component based on the provided
+     * language key.
+     *
+     * @param widget the android widget to be translated.
+     * @param language_key the language key for translation.
+     */
+    
+  /*  public static void autoTranslateWidget(Object widget, String language_key) {
+        HashMap<String, Object> temp = new HashMap<>();
+        temp.put("widget", widget);
+        temp.put("language_value", language_key);
+        appliedWidgets.add(temp);
+        autoInsertLanguage();
+    }*/
+
+    
+    
     /**
      * Automatically translates multiple components based on the provided
      * language key.
@@ -176,6 +207,7 @@ public class LanguageSystem {
                         setTextMethod.invoke(component, get(lang_val));
                     } catch (IllegalAccessException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
                         if (isDebugMode()) {
+                            System.err.println("LanguageSystemDebugOutput\n");
                             e.printStackTrace();
                         }
                     }
@@ -296,13 +328,13 @@ public class LanguageSystem {
         return LanguageReader.existsLanguage(language);
     }
 
-     /**
+    /**
      * Checks if the specified key exists in the system.
      *
      * @param key the key to check.
      * @return true if the key(translation_key) exists, false otherwise.
      */
-    public static boolean existsKey(String key){
+    public static boolean existsKey(String key) {
         return get(key, null) != null;
     }
 }
