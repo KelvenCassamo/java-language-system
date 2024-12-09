@@ -432,136 +432,64 @@ The **Java Language System (JLS)** is a pure Java library, so it can be used on 
 
 ### 5. Public Methods in `LanguageSystem`
 
-List of some public methods available in the `LanguageSystem` class.
-
-#### **5.1. Language Management**
-
--   **`void addLanguageSystemInterface(LanguageSystemInterface _li)`**  
-    Registers a listener to receive notifications when the language changes.  
-    **Parameters:**
-    
-    -   `_li`: An implementation of the `LanguageSystemInterface`.
--   **`void initializeFromFile(String default_language, String xml_file_path)`**  
-    Initializes the system with translations loaded from an XML file.  
-    **Parameters:**
-    
-    -   `default_language`: The default language code.
-    -   `xml_file_path`: Path to the XML file containing translations.
--   **`void initializeFromResources(String default_language, Class _class, String xml_file_path)`**  
-    Loads translations from a resource file in the classpath.  
-    **Parameters:**
-    
-    -   `default_language`: The default language code.
-    -   `_class`: The class used to load the resource.
-    -   `xml_file_path`: Path to the XML resource file.
--   **`String getCurrentLanguage()`**  
-    Returns the current active language.
-    
--   **`ArrayList<String> getLanguages()`**  
-    Retrieves a list of all available language codes.
-    
--   **`ArrayList<String> getTranslationKeys(String language)`**  
-    Retrieves all translation keys for a specific language.  
-    **Parameters:**
-    
-    -   `language`: The target language code.
--   **`void setCurrentLanguage(String language)`**  
-    Sets the current language and updates translations for registered components.  
-    **Parameters:**
-    
-    -   `language`: The language code to switch to.
--   **`boolean existsLanguage(String language)`**  
-    Checks if a specified language is available.  
-    **Parameters:**
-    
-    -   `language`: The language code to check.  
-        **Returns:**  
-        `true` if the language exists, `false` otherwise.
--   **`boolean existsKey(String key)`**  
-    Checks if a specific translation key exists in the system.  
-    **Parameters:**
-    
-    -   `key`: The translation key to check.  
-        **Returns:**  
-        `true` if the key exists, `false` otherwise.
+List of some public methods available in the `LanguageSystem` class. You will find details about initializing and managing supported languages.
 
 
-#### **5.2. Component Translation**
+### **5.1. Language Management**
 
--   **`void autoTranslateComponent(Component component, String language_key)`**  
-    Translates a single Swing component using the specified language key.  
-    **Parameters:**
-    
-    -   `component`: The component to translate.
-    -   `language_key`: The translation key.
--   **`void autoTranslateComponents(String language_key, Component... components)`**  
-    Translates multiple Swing components using the same language key.  
-    **Parameters:**
-    
-    -   `language_key`: The translation key.
-    -   `components`: The list of components to translate.
--   **`boolean canTranslateComponent(Component component)`**  
-    Checks if a component is translatable (i.e., it has a `setText` method).  
-    **Parameters:**
-    
-    -   `component`: The component to check.  
-        **Returns:**  
-        `true` if the component is translatable, `false` otherwise.
+| **Method**                                              | **Description**                                                                                           | **Parameters**                                                                                                                   | **Returns**                    |
+|---------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
+| `void addLanguageSystemInterface(LanguageSystemInterface _li)` | Registers a listener to receive notifications when the language changes.                                  | `_li`: Implementation of `LanguageSystemInterface`.                                                                             | N/A                            |
+| `void initializeFromFile(String default_language, String xml_file_path)` | Initializes translations from an external XML file.                                                       | `default_language`: Default language code. <br> `xml_file_path`: Path to the XML file.                                          | N/A                            |
+| `void initializeFromResources(String default_language, Class _class, String xml_file_path)` | Initializes translations from a resource file in the classpath.                                           | `default_language`: Default language code. <br> `_class`: Class used to load the resource. <br> `xml_file_path`: Resource path. | N/A                            |
+| `String getCurrentLanguage()`                          | Returns the current active language.                                                                      | None                                                                                                                            | Current language code.         |
+| `ArrayList<String> getLanguages()`                     | Retrieves a list of all available language codes.                                                         | None                                                                                                                            | List of language codes.         |
+| `ArrayList<String> getTranslationKeys(String language)` | Retrieves all translation keys for a specific language.                                                   | `language`: Target language code.                                                                                               | List of translation keys.       |
+| `void setCurrentLanguage(String language)`             | Sets the current language and updates all registered components.                                          | `language`: Language code to switch to.                                                                                        | N/A                            |
+| `boolean existsLanguage(String language)`              | Checks if a specified language is available.                                                              | `language`: Language code to check.                                                                                            | `true` if the language exists. |
+| `boolean existsKey(String key)`                        | Checks if a specific translation key exists in the system.                                                | `key`: Translation key to check.                                                                                               | `true` if the key exists.      |
 
+---
 
-#### **5.3. String Translation**
+### **5.2. Component Translation**
 
--   **`String get(String key)`**  
-    Retrieves the translated value for a specific key.  
-    **Parameters:**
-    
-    -   `key`: The translation key.  
-        **Returns:**  
-        The translated string or `null` if not found.
--   **`String get(String key, String default_value)`**  
-    Retrieves the translation for a key, returning a default value if the key is not found.  
-    **Parameters:**
-    
-    -   `key`: The translation key.
-    -   `default_value`: A fallback value.
--   **`String getf(String key, String... values)`**  
-    Retrieves and formats a translation string, replacing placeholders with values.  
-    **Parameters:**
-    
-    -   `key`: The translation key.
-    -   `values`: The values to replace placeholders in the string.
+| **Method**                                              | **Description**                                                                                           | **Parameters**                                                                                      | **Returns**                    |
+|---------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|--------------------------------|
+| `void autoTranslateComponent(Component component, String language_key)` | Translates a Swing component using the specified language key.                                            | `component`: Component to translate. <br> `language_key`: Translation key.                         | N/A                            |
+| `void autoTranslateComponents(String language_key, Component... components)` | Translates multiple Swing components using the same language key.                                        | `language_key`: Translation key. <br> `components`: List of components to translate.                | N/A                            |
+| `boolean canTranslateComponent(Component component)`   | Checks if a component is translatable (e.g., it has a `setText` method).                                  | `component`: Component to check.                                                                    | `true` if translatable.        |
 
+---
 
-#### **5.4. String Formatting**
+### **5.3. String Translation**
 
--   **`String format(String text, String... values)`**  
-    Formats a string by replacing placeholders with specified values.  
-    **Parameters:**
-    
-    -   `text`: The string to format.
-    -   `values`: The values to insert into placeholders.  
-        **Returns:**  
-        The formatted string.
--   **`boolean isFormatable(String text)`**  
-    Checks if a string contains placeholders for formatting.  
-    **Parameters:**
-    
-    -   `text`: The string to evaluate.  
-        **Returns:**  
-        `true` if the string is formatable, `false` otherwise.
+| **Method**                                              | **Description**                                                                                           | **Parameters**                                                                                      | **Returns**                    |
+|---------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|--------------------------------|
+| `String get(String key)`                               | Retrieves the translated value for a specific key.                                                        | `key`: Translation key.                                                                              | Translated string or `null`.   |
+| `String get(String key, String default_value)`         | Retrieves the translation for a key, or a default value if the key is not found.                          | `key`: Translation key. <br> `default_value`: Fallback value.                                       | Translated string or fallback. |
+| `String getf(String key, String... values)`            | Retrieves and formats a translation string, replacing placeholders with values.                           | `key`: Translation key. <br> `values`: Values to replace placeholders.                              | Formatted translated string.   |
+
+---
+
+### **5.4. String Formatting**
+
+| **Method**                                              | **Description**                                                                                           | **Parameters**                                                                                      | **Returns**                    |
+|---------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|--------------------------------|
+| `String format(String text, String... values)`         | Formats a string by replacing placeholders with specified values.                                         | `text`: String to format. <br> `values`: Values to insert into placeholders.                        | Formatted string.              |
+| `boolean isFormatable(String text)`                    | Checks if a string contains placeholders for formatting.                                                  | `text`: String to evaluate.                                                                         | `true` if formatable.          |
+
+---
+
+### **5.5. Debugging**
+
+| **Method**                                              | **Description**                                                                                           | **Parameters**                                                                                      | **Returns**                    |
+|---------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|--------------------------------|
+| `void setDebugMode(boolean _debug)`                    | Enables or disables debug mode.                                                                           | `_debug`: `true` to enable debug mode, `false` to disable it.                                        | N/A                            |
+| `boolean isDebugMode()`                                | Checks if debug mode is currently enabled.                                                                | None                                                                                               | `true` if debug mode is on.    |
 
 
-#### 5.5. **Debugging**
 
--   **`void setDebugMode(boolean _debug)`**  
-    Enables or disables debug mode.  
-    **Parameters:**
-    
-    -   `_debug`: `true` to enable debug mode, `false` to disable.
--   **`boolean isDebugMode()`**  
-    Checks if debug mode is currently enabled.  
-    **Returns:**  
-    `true` if debug mode is enabled, `false` otherwise.
+
 
 
 
