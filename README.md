@@ -1,4 +1,5 @@
 
+
 # Java Language System (JLS)
 
 The **Java Language System (JLS)** is a Java library designed to facilitate the internationalization (i18n) of applications, enabling dynamic language management and text translation, **Swing** components, and **Widgets** on **Android**, based on XML files.
@@ -20,8 +21,9 @@ The **Java Language System (JLS)** can be easily integrated into your Java proje
 You can find the latest version of JLS in JAR format in the **Releases** section on GitHub. To do this, visit the releases page and download the JAR file:
 
 - **Find the latest version of the JAR here**: [JLS Releases Page](https://github.com/KelvenCassamo/java-language-system/releases)
+- Or, you can download the latest compiled JAR directly from the link below:
+ [📦 Download the latest compiled JAR](https://github.com/KelvenCassamo/java-language-system/releases/download/v1.0.0-beta/java-language-system-1.0.0.jar)
 
-Choose the desired version, download the `.jar` file, and add it to your project.
 
 ### 2. Main Features
 
