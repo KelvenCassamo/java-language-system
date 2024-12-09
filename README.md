@@ -27,9 +27,60 @@ You can find the latest version of JLS in JAR format in the **Releases** section
 
 ### 2. Main Features
 
-The **Java Language System (JLS)** offers various features to facilitate the internationalization and translation of applications. The main features include:
+The **Java Language System (JLS)** offers various features to facilitate the internationalization and translation of applications. 
 
-#### **2.1 Language Initialization from Files or Resources**
+#### **2.1 Creating the translations**
+
+To configure the language system, start by creating translations in an XML file. Below is an example of a `languages.xml` file with translations in, for example **English** and **Portuguese**.
+````xml
+<languages>
+    <language value="english">
+        <translated value="hello_world">
+            <value>Hello, World!</value>
+        </translated>
+        <translated value="presentation">
+            <value>My name is $1!</value>
+        </translated>
+    </language>
+
+    <language value="portuguese">
+        <translated value="hello_world">
+            <value>Olá, Mundo!</value>
+        </translated>
+        <translated value="presentation">
+            <value>O meu nome é $1!</value>
+        </translated>
+    </language>
+</languages>
+````
+-   **Language keys** (e.g., `hello_world`, `presentation`) are identifiers for the text.
+-   **Placeholders** (e.g., `$1`) can dynamically insert values into the text.
+
+#### **2.2. Structure of a `languages.xml` File**
+
+The `languages.xml` file contains translations for various languages and their respective text values. Below is a detailed table explaining each element and attribute in the file.
+
+
+| **Element/Attribute** | **Description**                                                                                     | **Attributes**                      | **Example**                                    |
+|------------------------|----------------------------------------------------------------------------------------------------|--------------------------------------|------------------------------------------------|
+| `<languages>`          | Root element that contains all language definitions.                                               | None                                 | `<languages> ... </languages>`                 |
+| `<language>`           | Represents a specific language and contains its translations.                                      | `value` (language code)              | `<language value="english"> ... </language>`   |
+| `<translated>`         | Defines a single translation entry, identified by a unique key.                                     | `value` (translation key)            | `<translated value="hello_world"> ... </translated>` |
+| `<value>`              | Specifies the actual translation text for a given key.                                             | None                                 | `<value>Hello, World!</value>`                 |
+
+
+
+#### **2.3. Attributes Details**
+
+#### `<language>` Attributes
+- **`value`**: The language code or name (e.g., "english", "portuguese"). This helps in identifying the language.
+
+#### `<translated>` Attributes
+- **`value`**: The unique key for the translation (e.g., "hello_world", "presentation"). This key is used to reference the translation programmatically.
+
+
+
+#### **2.4. Language Initialization from Files or Resources**
 
 JLS allows you to initialize the language system in two ways:
 
@@ -45,7 +96,7 @@ LanguageSystem.initializeFromFile("english", "path/to/languages.xml");
 LanguageSystem.initializeFromResources("english", ExampleFromRes.class, "path/to/resources/languages.xml");
 ````
 
-#### **2.2 Dynamic Language Change**
+#### **2.5. Dynamic Language Change**
 
 With JLS, you can change the application’s language at runtime, allowing texts and interface components to be automatically updated to the new language. This is done using the `setCurrentLanguage` method, passing the desired language code.
 
@@ -56,11 +107,11 @@ LanguageSystem.setCurrentLanguage("portuguese");
 
 When changing the language, JLS automatically translates all registered components to the new language.
 
-#### **2.3 Automatic Component Translation**
+#### **2.6. Automatic Component Translation**
 
 The system supports the automatic translation of graphical interface components, such as **Swing** components (e.g., `JLabel`, `JButton`) and **Widgets** (e.g., `TextView`, `Button`, `EditText`, and others with the method **setText**) on Android, using predefined translation keys. You can associate a translation key with a component, and it will be automatically updated when the language is changed.
 
-**Example of automatic translation for Swing components:**
+#### **Example of automatic translation for Swing components:**
 ````java
 JLabel label = new JLabel();
 LanguageSystem.autoTranslateComponent(label, "hello_world");
@@ -68,7 +119,7 @@ LanguageSystem.autoTranslateComponent(label, "hello_world");
 
 **Important Note:** The `autoTranslateComponent` method should be called only once for each component. In the example above, the text of the `JLabel` will be automatically translated based on the selected language.
 
-**Example of automatic translation for Android widgets:**
+#### **Example of automatic translation for Android widgets:**
 ````java
 TextView textView = new TextView();
 LanguageSystem.autoTranslateView(textView, "hello_world");
@@ -90,13 +141,13 @@ JLabel label = new JLabel();
 label.setText(LanguageSystem.get("hello_world"));
 ````
 
-#### **2.4 Support for Dynamic Placeholders**
+#### **2.7. Support for Dynamic Placeholders**
 
 JLS supports the use of **dynamic placeholders** in translations, allowing variable values to be inserted into messages. This is useful for personalized messages, such as greetings or warnings, where parts of the text can change depending on the context.
 
 Placeholders are represented by **$1**, **$2**, etc., in the translation file. You can replace these placeholders with specific values when calling the translation.
 
-**Example of translation with placeholders:**
+#### **Example of translation with placeholders:**
 ````xml
 <translated value="presentation">
     <value>My name is $1!</value>
@@ -116,11 +167,11 @@ As an alternative, you can use the `LanguageSystem.format(text_content, ...place
 String translatedText = LanguageSystem.format(LanguageSystem.get("presentation", "My name is $1"), "Cassamo");
 ````
 
-#### **2.5 Support for Multiple Languages**
+#### **2.8. Support for Multiple Languages**
 
 JLS allows the inclusion of multiple languages in a single XML file, and switching between them can be done without altering the application’s source code. This makes it easy to add new languages and maintain translations in multilingual applications.
 
-**Example of translation in multiple languages in XML:**
+#### **Example of translation in multiple languages in XML:**
 ````xml
 <language value="english">
     <translated value="hello_world">
@@ -139,7 +190,7 @@ JLS allows the inclusion of multiple languages in a single XML file, and switchi
 ### 3. Practical Example
 Let's see a practical example of how to integrate the **Java Language System (JLS)** into a Java application **(Normal, Desktop and Android)**, for both configuring and switching languages, and for translating texts and displaying dynamic information with placeholders.
 
-#### **3.1 Step 1: Initial Setup**
+#### **3.1. Initial Setup**
 
 First, let's configure the language system by loading the translations from an XML file or internal resources. Suppose we have a `languages.xml` file containing translations in English and Portuguese.
 ````xml
@@ -164,7 +215,8 @@ First, let's configure the language system by loading the translations from an X
 </languages>
 ````
 
-#### **3.2 Step 2: Initializing the Language System**
+
+#### **3.2. Initializing the Language System**
 
 Now, let's set up the **Java Language System (JLS)** to use the XML file with translations and define an initial language (e.g., English).
 
@@ -190,7 +242,7 @@ public class Example {
 
 ````
 
-#### **3.4 Step 4: Using Placeholders**
+#### **3.4. Using Placeholders**
 
 **JLS** also allows the use of **placeholders** to insert dynamic values into translations. For example, in the `"presentation"` key, we can insert a dynamic name using `$1` as a placeholder.
 
@@ -214,7 +266,7 @@ public class ExampleWithPlaceholders {
 
 
 
-#### In Java Swing
+#### 3.5. In Java Swing
 ````java
 import mz.cassamo.jls.LanguageSystem;
 import javax.swing.*;
@@ -302,7 +354,7 @@ public class ExampleWithUI {
 
 ````
 
-#### In Android
+#### 3.6. In Android
 ```java
 package com.example.myapp;
 
@@ -357,13 +409,13 @@ Unfortunately, for Android, it is not yet possible to initialize from Assets. Th
 
 The **Java Language System (JLS)** is designed to be a lightweight and easy-to-integrate solution for different types of Java applications. Below are the system requirements and dependencies needed to use JLS.
 
-#### **4.2 Software Requirements**
+#### **4.2. Software Requirements**
 
 - **Java Runtime Environment (JRE)**:
     - JRE 8 or higher.
     - For development, it is recommended to use **Java Development Kit (JDK)** version 8 or higher.
 
-#### **4.3 Platform Requirements**
+#### **4.3. Platform Requirements**
 
 The **Java Language System (JLS)** is a pure Java library, so it can be used on any platform that supports Java, including:
 
@@ -372,7 +424,7 @@ The **Java Language System (JLS)** is a pure Java library, so it can be used on 
     - **Recommended IDEs**: IntelliJ IDEA, Eclipse, NetBeans, and Android Studio.
     - It can be used in any code editor, like VS Code, as long as the Java environment is properly set up.
 
-#### **4.4 Application Compatibility**
+#### **4.4. Application Compatibility**
 
 - **Desktop Applications**: JLS can be easily used in Java desktop applications that utilize **Swing**.
 - **Android Applications**: JLS is also compatible with Android, allowing translation of **Widgets** and texts at runtime. For integration into Android, it is necessary to set up the Android Studio development environment.
@@ -382,7 +434,7 @@ The **Java Language System (JLS)** is a pure Java library, so it can be used on 
 
 List of some public methods available in the `LanguageSystem` class.
 
-### **5.1. Language Management**
+#### **5.1. Language Management**
 
 -   **`void addLanguageSystemInterface(LanguageSystemInterface _li)`**  
     Registers a listener to receive notifications when the language changes.  
@@ -434,7 +486,7 @@ List of some public methods available in the `LanguageSystem` class.
         `true` if the key exists, `false` otherwise.
 
 
-### **5.2. Component Translation**
+#### **5.2. Component Translation**
 
 -   **`void autoTranslateComponent(Component component, String language_key)`**  
     Translates a single Swing component using the specified language key.  
@@ -457,7 +509,7 @@ List of some public methods available in the `LanguageSystem` class.
         `true` if the component is translatable, `false` otherwise.
 
 
-### **5.3. String Translation**
+#### **5.3. String Translation**
 
 -   **`String get(String key)`**  
     Retrieves the translated value for a specific key.  
@@ -480,7 +532,7 @@ List of some public methods available in the `LanguageSystem` class.
     -   `values`: The values to replace placeholders in the string.
 
 
-### **5.4. String Formatting**
+#### **5.4. String Formatting**
 
 -   **`String format(String text, String... values)`**  
     Formats a string by replacing placeholders with specified values.  
@@ -499,7 +551,7 @@ List of some public methods available in the `LanguageSystem` class.
         `true` if the string is formatable, `false` otherwise.
 
 
-### 5.5. **Debugging**
+#### 5.5. **Debugging**
 
 -   **`void setDebugMode(boolean _debug)`**  
     Enables or disables debug mode.  
