@@ -296,4 +296,13 @@ public class LanguageSystem {
         return LanguageReader.existsLanguage(language);
     }
 
+     /**
+     * Checks if the specified key exists in the system.
+     *
+     * @param key the key to check.
+     * @return true if the key(translation_key) exists, false otherwise.
+     */
+    public static boolean existsKey(String key){
+        return get(key, null) != null;
+    }
 }

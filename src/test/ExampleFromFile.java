@@ -31,5 +31,6 @@ public class ExampleFromFile {
         // Display translation for "hello_world" in portugues
         System.out.println(LanguageSystem.get("hello_world"));
         
+        
     }
 }
