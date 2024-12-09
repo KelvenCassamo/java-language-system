@@ -377,9 +377,145 @@ The **Java Language System (JLS)** is a pure Java library, so it can be used on 
 - **Desktop Applications**: JLS can be easily used in Java desktop applications that utilize **Swing**.
 - **Android Applications**: JLS is also compatible with Android, allowing translation of **Widgets** and texts at runtime. For integration into Android, it is necessary to set up the Android Studio development environment.
 
-### **5. Contribution and Support**
 
-#### **5.1 How to Contribute**
+### 5. Public Methods in `LanguageSystem`
+
+List of some public methods available in the `LanguageSystem` class.
+
+### **5.1. Language Management**
+
+-   **`void addLanguageSystemInterface(LanguageSystemInterface _li)`**  
+    Registers a listener to receive notifications when the language changes.  
+    **Parameters:**
+    
+    -   `_li`: An implementation of the `LanguageSystemInterface`.
+-   **`void initializeFromFile(String default_language, String xml_file_path)`**  
+    Initializes the system with translations loaded from an XML file.  
+    **Parameters:**
+    
+    -   `default_language`: The default language code.
+    -   `xml_file_path`: Path to the XML file containing translations.
+-   **`void initializeFromResources(String default_language, Class _class, String xml_file_path)`**  
+    Loads translations from a resource file in the classpath.  
+    **Parameters:**
+    
+    -   `default_language`: The default language code.
+    -   `_class`: The class used to load the resource.
+    -   `xml_file_path`: Path to the XML resource file.
+-   **`String getCurrentLanguage()`**  
+    Returns the current active language.
+    
+-   **`ArrayList<String> getLanguages()`**  
+    Retrieves a list of all available language codes.
+    
+-   **`ArrayList<String> getTranslationKeys(String language)`**  
+    Retrieves all translation keys for a specific language.  
+    **Parameters:**
+    
+    -   `language`: The target language code.
+-   **`void setCurrentLanguage(String language)`**  
+    Sets the current language and updates translations for registered components.  
+    **Parameters:**
+    
+    -   `language`: The language code to switch to.
+-   **`boolean existsLanguage(String language)`**  
+    Checks if a specified language is available.  
+    **Parameters:**
+    
+    -   `language`: The language code to check.  
+        **Returns:**  
+        `true` if the language exists, `false` otherwise.
+-   **`boolean existsKey(String key)`**  
+    Checks if a specific translation key exists in the system.  
+    **Parameters:**
+    
+    -   `key`: The translation key to check.  
+        **Returns:**  
+        `true` if the key exists, `false` otherwise.
+
+
+### **5.2. Component Translation**
+
+-   **`void autoTranslateComponent(Component component, String language_key)`**  
+    Translates a single Swing component using the specified language key.  
+    **Parameters:**
+    
+    -   `component`: The component to translate.
+    -   `language_key`: The translation key.
+-   **`void autoTranslateComponents(String language_key, Component... components)`**  
+    Translates multiple Swing components using the same language key.  
+    **Parameters:**
+    
+    -   `language_key`: The translation key.
+    -   `components`: The list of components to translate.
+-   **`boolean canTranslateComponent(Component component)`**  
+    Checks if a component is translatable (i.e., it has a `setText` method).  
+    **Parameters:**
+    
+    -   `component`: The component to check.  
+        **Returns:**  
+        `true` if the component is translatable, `false` otherwise.
+
+
+### **5.3. String Translation**
+
+-   **`String get(String key)`**  
+    Retrieves the translated value for a specific key.  
+    **Parameters:**
+    
+    -   `key`: The translation key.  
+        **Returns:**  
+        The translated string or `null` if not found.
+-   **`String get(String key, String default_value)`**  
+    Retrieves the translation for a key, returning a default value if the key is not found.  
+    **Parameters:**
+    
+    -   `key`: The translation key.
+    -   `default_value`: A fallback value.
+-   **`String getf(String key, String... values)`**  
+    Retrieves and formats a translation string, replacing placeholders with values.  
+    **Parameters:**
+    
+    -   `key`: The translation key.
+    -   `values`: The values to replace placeholders in the string.
+
+
+### **5.4. String Formatting**
+
+-   **`String format(String text, String... values)`**  
+    Formats a string by replacing placeholders with specified values.  
+    **Parameters:**
+    
+    -   `text`: The string to format.
+    -   `values`: The values to insert into placeholders.  
+        **Returns:**  
+        The formatted string.
+-   **`boolean isFormatable(String text)`**  
+    Checks if a string contains placeholders for formatting.  
+    **Parameters:**
+    
+    -   `text`: The string to evaluate.  
+        **Returns:**  
+        `true` if the string is formatable, `false` otherwise.
+
+
+### 5.5. **Debugging**
+
+-   **`void setDebugMode(boolean _debug)`**  
+    Enables or disables debug mode.  
+    **Parameters:**
+    
+    -   `_debug`: `true` to enable debug mode, `false` to disable.
+-   **`boolean isDebugMode()`**  
+    Checks if debug mode is currently enabled.  
+    **Returns:**  
+    `true` if debug mode is enabled, `false` otherwise.
+
+
+
+### **6. Contribution and Support**
+
+#### **6.1 How to Contribute**
 
 The **Java Language System (JLS)** is an open-source project, and we are always open to community contributions! If you wish to contribute to the development and improvement of the library, follow the steps below:
 
@@ -410,7 +546,7 @@ git push origin feature-name
 8.  **Open a Pull Request**: On GitHub, open a Pull Request to the main repository with a clear description of your changes.
     
 
-#### **5.2 Support**
+#### **6.2 Support**
 
 If you encounter issues using the **Java Language System (JLS)** or need assistance, there are several ways to get support:
 
@@ -430,4 +566,5 @@ If you encounter issues using the **Java Language System (JLS)** or need assista
 **Email Support**:
 
 -   If you need more direct support, send an email to my address: `kelvencassamo9@gmail.com`.
+
 
