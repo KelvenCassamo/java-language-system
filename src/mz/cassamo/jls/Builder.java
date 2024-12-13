@@ -25,7 +25,14 @@ private String filePath = null;
    
     public void loadFromFile(String filePath) {
         this.filePath = filePath;
+        
+        
         try {
+        	String dir_path = new File(filePath).getAbsoluteFile().getParent();
+        	File f = new File(dir_path);
+        	if(!f.exists()) {
+        		f.mkdir();
+        	}
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser saxParser = factory.newSAXParser();
             LanguageHandler handler = new LanguageHandler();

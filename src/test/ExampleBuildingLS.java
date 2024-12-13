@@ -1,6 +1,8 @@
 
 package test;
 
+import java.io.File;
+
 import mz.cassamo.jls.LanguageSystem;
 
 /**
@@ -19,8 +21,7 @@ public static void main(String[] args) {
     
     // Add new languages to the language system
     builder.putLanguage("english");
-    builder.putLanguage("portuguese");
-    
+    builder.putLanguage("portuguese");    
     // Add translations for the "hello_world" key in both languages.
     builder.putTranslation("english", "hello_world", "Hello, World!");
     builder.putTranslation("portuguese", "hello_world", "Olá, Mundo!");
