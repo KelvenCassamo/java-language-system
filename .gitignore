@@ -8,3 +8,7 @@ build.xml
 manifest.mf
 /lib/
 /keystores/
+/bin/
+.project
+.classpath
+/bin/
