@@ -11,6 +11,8 @@ import java.util.Set;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import mz.cassamo.jls.exceptions.BuilderParseException;
+
 /**
  *
  * @author cassamo
@@ -23,7 +25,7 @@ private String filePath = null;
     }
 
    
-    public void loadFromFile(String filePath) {
+    public void loadFromFile(String filePath) throws BuilderParseException {
         this.filePath = filePath;
         
         
@@ -40,7 +42,25 @@ private String filePath = null;
             saxParser.parse(new File(filePath), handler);
             mergeTranslations(handler.getLanguages());
         } catch (Exception e) {
-          
+        	if(e.getClass().getName().equals("java.io.FileNotFoundException")) {
+        		File file = new File(filePath);
+        		try {
+					FileWriter w = new FileWriter(filePath);
+					w.write("<languages>\n</languages>");
+					w.flush();
+				} catch (IOException e1) {
+					
+				}
+        		
+        	}
+        	else if(e.getClass().getName().equals("org.xml.sax.SAXParseException")) {
+        	  throw new BuilderParseException(e.getMessage());
+        		
+        	} else {
+        		System.out.println(e.getClass().getName());
+        		System.out.println(e.getMessage());
+        	}
+         
         }
     }
 
