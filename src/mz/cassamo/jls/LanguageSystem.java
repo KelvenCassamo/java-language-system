@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * A system for managing and applying language translations across user
@@ -27,7 +28,6 @@ import java.util.HashMap;
  */
 public class LanguageSystem {
 
- 
     private static final ArrayList<HashMap<String, Object>> appliedComponents = new ArrayList<>();
     private static final ArrayList<HashMap<String, Object>> appliedWidgets = new ArrayList<>();
     private static boolean debug = false;
@@ -99,10 +99,11 @@ public class LanguageSystem {
         }
         return langs;
     }
-    
+
     /**
      * Gets a list of available translations for specific language.
-     *@param language the language to be used. 
+     *
+     * @param language the language to be used.
      * @return a list of translations.
      */
     public static ArrayList<String> getTranslationKeys(String language) {
@@ -121,6 +122,25 @@ public class LanguageSystem {
      */
     public static void setCurrentLanguage(String language) {
         LanguageReader.setLanguage(language);
+        autoInsertLanguage();
+        if (li != null) {
+            li.onChange(language);
+        }
+    }
+
+    /**
+     * Sets the current language of the system with a fallback to the default
+     * language if the specified language does not exist.
+     *
+     * @param language the desired language code.
+     * @param default_language the default language code to use as a fallback.
+     */
+    public static void setCurrentLanguage(String language, String default_language) {
+        String lang = language;
+        if (!existsLanguage(language)) {
+            lang = default_language;
+        }
+        LanguageReader.setLanguage(lang);
         autoInsertLanguage();
         if (li != null) {
             li.onChange(language);
@@ -149,17 +169,13 @@ public class LanguageSystem {
      * @param widget the android widget to be translated.
      * @param language_key the language key for translation.
      */
-    
-  /*  public static void autoTranslateWidget(Object widget, String language_key) {
+    /*  public static void autoTranslateWidget(Object widget, String language_key) {
         HashMap<String, Object> temp = new HashMap<>();
         temp.put("widget", widget);
         temp.put("language_value", language_key);
         appliedWidgets.add(temp);
         autoInsertLanguage();
     }*/
-
-    
-    
     /**
      * Automatically translates multiple components based on the provided
      * language key.
@@ -337,4 +353,25 @@ public class LanguageSystem {
     public static boolean existsKey(String key) {
         return get(key, null) != null;
     }
+
+    /**
+     * Retrieves the default system language based on the user's locale.
+     *
+     * @return the system's default language in English.
+     */
+    public static String getDefaultSystemLanguage() {
+        Locale currentLocale = Locale.getDefault();
+        String language = currentLocale.getDisplayLanguage(Locale.ENGLISH);
+
+        return language.toLowerCase();
+    }
+
+    public static class Builder extends mz.cassamo.jls.Builder {
+
+        public Builder() {
+        super();
+        }
+        
+    }
+
 }
