@@ -502,7 +502,7 @@ The **Java Language System (JLS)** is an open-source project, and we are always 
 1. **Fork the repository**: Click "Fork" on GitHub to create a copy of the repository in your own account.
 2. **Clone the repository**: Clone the repository to your computer with the command:
 ````bash
-git clone https://github.com/your-username/jls.git
+git clone https://github.com/KelvenCassamo/java-language-system.git
 ````
 
 **Create a branch for your feature**: Before making changes, create a new branch with a descriptive name:
