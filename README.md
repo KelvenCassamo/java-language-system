@@ -23,7 +23,7 @@ You can find the latest version of JLS in JAR format in the **Releases** section
 
 - **Find the latest version of the JAR here**: [JLS Releases Page](https://github.com/KelvenCassamo/java-language-system/releases)
 - Or, you can download the latest compiled JAR directly from the link below:
- [📦 Download the latest compiled JAR](https://github.com/KelvenCassamo/java-language-system/releases/download/v1.0.0-beta/java-language-system-1.0.0.jar)
+ [📦 Download the latest compiled JAR](https://github.com/KelvenCassamo/java-language-system/releases/download/v1.0.1/java-language-system-1.0.1.jar)
 
 
 ### 2. Main Features
