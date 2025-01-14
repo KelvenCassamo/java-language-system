@@ -1,4 +1,5 @@
 
+  
 
 # Java Language System (JLS)
 
@@ -491,18 +492,121 @@ List of some public methods available in the `LanguageSystem` class. You will fi
 
 
 
+### 6. XMLBuilder
+
+The **XMLBuilder** is a class that simplifies the creation, manipulation, and storage of translations in XML format. It provides an interface for managing languages, adding translations, and saving the data to XML files, as well as handling existing resources.
 
 
-### **6. Contribution and Support**
 
-#### **6.1 How to Contribute**
+#### **6.1. Main Features**
+
+- **XML file reading**: Allows loading existing translations from a file.
+- **Dynamic translation management**: Adds and removes languages and translations programmatically.
+- **Automatic file creation**: If the XML file does not exist, it will be created.
+- **Standardized XML format**: Ensures compatibility and readability of the generated translation file.
+
+
+
+#### **6.2. Methods**
+
+Below are the most important methods of the class:
+
+| **Method**                                     | **Description**                                                                                                   | **Parameters**                                                                                                    | **Return** |
+|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|-----------|
+| `void loadFromFile(String path)`               | Loads translations from an XML file. If the file does not exist, it will be automatically created.                | `path`: Path to the XML file.                                                                                     | N/A       |
+| `void loadFromResources(String resourcePath, Class<?> resourceClass)` | Loads translations from a resource in the classpath.                                                                 | `resourcePath`: Path to the resource.<br>`resourceClass`: Class containing the resource.                           | N/A       |
+| `void putLanguage(String language)`            | Adds a new language to the system.                                                                                  | `language`: Language code to be added.                                                                              | N/A       |
+| `void removeLanguage(String language)`         | Removes a specific language from the system.                                                                       | `language`: Language code to be removed.                                                                           | N/A       |
+| `void putTranslation(String language, String key, String value)` | Adds or updates a translation for a specific language.                                                             | `language`: Language.<br>`key`: Translation key.<br>`value`: Translated text.                                      | N/A       |
+| `void removeTranslation(String language, String key)` | Removes a specific translation from a language.                                                                   | `language`: Language.<br>`key`: Translation key.                                                                  | N/A       |
+| `void saveToFile(String path)`                 | Saves the current translations to an XML file.                                                                     | `path`: Path to the XML file where the data will be saved.                                                        | N/A       |
+| `void save()`                                  | Saves the translations to the original loaded path.                                                                | N/A                                                                                                               | N/A       |
+| `String toXmlString()`                         | Returns an XML representation of the current translations.                                                        | N/A                                                                                                               | Generated XML. |
+
+
+#### **6.3. XML File Structure**
+
+The generated XML file follows an organized structure, as shown in the example below:
+
+````xml
+<!--JLS 1.0-->
+<!--LANGUAGES: 2-->
+<languages>
+  <language value="english">
+    <translated value="hello_world">
+      <value>Hello, World!</value>
+    </translated>
+  </language>
+  <language value="portuguese">
+    <translated value="hello_world">
+      <value>Olá, Mundo!</value>
+    </translated>
+  </language>
+</languages>
+
+````
+
+
+#### **6.4. Usage Example**
+
+Below is a complete example of how to use the **XMLBuilder**:
+
+````java
+package test;
+
+import java.io.File;
+import mz.cassamo.jls.LanguageSystem;
+import mz.cassamo.jls.exceptions.BuilderParseException;
+
+public class ExampleBuildingLS {
+    public static void main(String[] args) {
+        LanguageSystem.Builder builder = new LanguageSystem.Builder();
+
+        try {
+            // Load or create the translation file
+            builder.loadFromFile("test/languages.xml");
+            
+            // Add languages
+            builder.putLanguage("english");
+            builder.putLanguage("portuguese");
+
+            // Add translations
+            builder.putTranslation("english", "hello_world", "Hello, World!");
+            builder.putTranslation("portuguese", "hello_world", "Olá, Mundo!");
+
+            // Save changes
+            builder.save();
+        } catch (BuilderParseException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+````
+
+
+#### **6.5. Error Handling**
+
+The **XMLBuilder** handles common errors in a robust manner:
+
+-   **Nonexistent file**: Creates a new empty XML file.
+-   **Parsing error**: Throws specific exceptions, such as `BuilderParseException`.
+-   **Invalid path**: Throws I/O (Input/Output) exceptions and logs messages in debug mode.
+
+
+
+
+### **7. Contribution and Support**
+
+#### **7.1 How to Contribute**
 
 The **Java Language System (JLS)** is an open-source project, and we are always open to community contributions! If you wish to contribute to the development and improvement of the library, follow the steps below:
 
 1. **Fork the repository**: Click "Fork" on GitHub to create a copy of the repository in your own account.
 2. **Clone the repository**: Clone the repository to your computer with the command:
 ````bash
-git clone https://github.com/KelvenCassamo/java-language-system.git
+git clone https://github.com/your-username/jls.git
 ````
 
 **Create a branch for your feature**: Before making changes, create a new branch with a descriptive name:
@@ -526,7 +630,7 @@ git push origin feature-name
 8.  **Open a Pull Request**: On GitHub, open a Pull Request to the main repository with a clear description of your changes.
     
 
-#### **6.2 Support**
+#### **7.2 Support**
 
 If you encounter issues using the **Java Language System (JLS)** or need assistance, there are several ways to get support:
 
@@ -547,4 +651,6 @@ If you encounter issues using the **Java Language System (JLS)** or need assista
 
 -   If you need more direct support, send an email to my address: `kelvencassamo9@gmail.com`.
 
+**Follow me on :**
+-  [Instagram](https://instagram.com/kelven.cassamo)
 
