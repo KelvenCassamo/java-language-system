@@ -1,4 +1,4 @@
-<nbprogenie>
+<languages>
     <language value="english">
         <translated value="hello_world">
             <value>Hello, World!</value>
@@ -26,4 +26,4 @@
         </translated>
     </language>
 
-</nbprogenie>
+</languages>
