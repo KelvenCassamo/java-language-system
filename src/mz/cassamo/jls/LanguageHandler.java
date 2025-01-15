@@ -12,7 +12,9 @@ import org.xml.sax.helpers.DefaultHandler;
  * keys.
  *
  * <p>
- * Expected XML structure:</p>
+ * Expected XML structure:
+ * </p>
+ * 
  * <pre>{@code
  * <languages>
  *     <language value="english">
@@ -29,7 +31,9 @@ import org.xml.sax.helpers.DefaultHandler;
  * }</pre>
  *
  * <p>
- * Usage example:</p>
+ * Usage example:
+ * </p>
+ * 
  * <pre>{@code
  * LanguageHandler handler = new LanguageHandler();
  * // Parse XML using an appropriate SAX parser...
@@ -51,6 +55,7 @@ class LanguageHandler extends DefaultHandler {
      */
     private String currentTranslationKey;
     private boolean isValueElement = false;
+    private String tenseKey = null;
 
     /**
      * Stores translations for all languages as nested maps.
@@ -66,10 +71,18 @@ class LanguageHandler extends DefaultHandler {
         if (qName.equalsIgnoreCase("language")) {
             currentLanguage = attributes.getValue("value");
             translations.putIfAbsent(currentLanguage, new HashMap<>());
+            tenseKey = null;
+
         } else if (qName.equalsIgnoreCase("translated")) {
             currentTranslationKey = attributes.getValue("value");
+            tenseKey = null;
         } else if (qName.equalsIgnoreCase("value")) {
             isValueElement = true;
+            if (attributes.getValue("tense") != null) {
+                tenseKey = attributes.getValue("tense");
+            } else {
+                tenseKey = null;
+            }
             currentValueBuilder = new StringBuilder();
         }
     }
@@ -81,7 +94,29 @@ class LanguageHandler extends DefaultHandler {
 
             if (currentValueBuilder != null && currentLanguage != null && currentTranslationKey != null) {
                 String translationValue = currentValueBuilder.toString().trim();
-                translations.get(currentLanguage).put(currentTranslationKey, translationValue);
+                // System.out.println(currentTranslationKey);
+                String tempCurrentTranslationKey = currentTranslationKey;
+                // System.out.println(tenseKey);
+                if (translations.get(currentLanguage).containsKey(tempCurrentTranslationKey)
+                        && !tempCurrentTranslationKey.contains("~") && tenseKey != null) {
+                    /**
+                     * We add ~ if the current translation has multiple values and these values
+                     * contain tense attribute.
+                     */
+
+                    if (tenseKey != null) {
+                        tempCurrentTranslationKey = tempCurrentTranslationKey + "~" + tenseKey;
+                        tenseKey = null;
+                    }
+                } else if (!translations.get(currentLanguage).containsKey(tempCurrentTranslationKey)
+                        && !tempCurrentTranslationKey.contains("~") && tenseKey != null) {
+                    tempCurrentTranslationKey = tempCurrentTranslationKey + "~" + tenseKey;
+                    tenseKey = null;
+                }
+
+                //System.out.println(tempCurrentTranslationKey);
+
+                translations.get(currentLanguage).put(tempCurrentTranslationKey, translationValue);
             }
         }
     }
@@ -96,10 +131,10 @@ class LanguageHandler extends DefaultHandler {
     /**
      * Retrieves a translation value for a given language and key.
      *
-     * @param language the language to look up
+     * @param language       the language to look up
      * @param translationKey the key for the desired translation
-     * @param defaultValue the value to return if the key or language is not
-     * found
+     * @param defaultValue   the value to return if the key or language is not
+     *                       found
      * @return the translation value, or the default value if not found
      */
     public String getLanguageValue(String language, String translationKey, String default_value) {
@@ -109,6 +144,19 @@ class LanguageHandler extends DefaultHandler {
         } else {
             return default_value;
         }
+    }
+
+    public Map<String, String> getLanguageValues(String language) {
+        Map<String, String> languageMap = translations.get(language);
+        System.out.println(translations);
+        return languageMap;
+        /*
+         * if (languageMap != null) {
+         * return languageMap.getOrDefault(translationKey, default_value);
+         * } else {
+         * return default_value;
+         * }
+         */
     }
 
     /**

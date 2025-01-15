@@ -13,3 +13,4 @@ manifest.mf
 .classpath
 /bin/
 /test/
+/.vscode/

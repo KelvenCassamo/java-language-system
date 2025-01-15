@@ -130,6 +130,16 @@ class LanguageReader {
 
     }
 
+    public static String getWord(String key, String tense) {
+        key = key.toLowerCase();
+        if (saxParser != null) {
+            return handler.getLanguageValue(language, key+"~"+tense, "");
+        } else {
+            return "";
+        }
+
+    }
+
     public static boolean existsLanguage(String language) {
         return getLanguages().containsKey(language);
     }

@@ -260,6 +260,59 @@ public class LanguageSystem {
         return LanguageReader.getValue(key, default_value);
     }
 
+/**
+ * Retrieves the translated value for a given key and tense.
+ * 
+ * This method fetches the translation for a specific key and tense (e.g., "infinitive", "past", etc.)
+ * from the language resources or file. If the tense is not found, it returns the translation for the specified key.
+ * If neither the key nor the tense is found, it returns {@code null}.
+ * 
+ * <p><strong>Note:</strong> It is recommended to use verb tenses as the argument for the {@code tense} parameter. 
+ * However, the parameter is not limited to verb tenses. Any identifier can be used as long as it is well-defined and explicit.</p>
+ * 
+ * <p>Example using numeric identifiers:</p>
+ * <pre>{@code
+ * <value tense="0">
+ *     Read
+ * </value>
+ * <value tense="1">
+ *     Read (Past)
+ * </value>
+ * <value tense="2">
+ *     Read (Participle)
+ * </value>
+ * <value tense="3">
+ *     Reading
+ * </value>
+ * }</pre>
+ * 
+ * <p>Recommended practice using verb tenses:</p>
+ * <pre>{@code
+ * <value tense="infinitive">
+ *     Read
+ * </value>
+ * <value tense="past">
+ *     Read
+ * </value>
+ * <value tense="participle">
+ *     Read
+ * </value>
+ * <value tense="gerund">
+ *     Reading
+ * </value>
+ * }</pre>
+ * 
+ * @param key the translation key (e.g., "read").
+ * @param tense the specific tense to retrieve (e.g., "infinitive", "past", "participle", "gerund").
+ * @return the translated string for the specified key and tense, or the translated string for the specified key 
+ *         if the tense is not found, or {@code null} if neither the key nor the tense are found.
+ */
+public static String getWord(String key, String tense) {
+    return LanguageReader.getWord(key, tense);
+}
+
+
+
     /**
      * Retrieves and formats the translated string for a given key, replacing
      * placeholders with values.
