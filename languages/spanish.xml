@@ -1,0 +1,36 @@
+<language value="spanish">
+
+    <translated value="read">
+        <value tense="infinitive">
+            Leer
+        </value>
+        <value tense="past">
+            Leyó
+        </value>
+        <value tense="participle">
+            Leído
+        </value>
+        <value tense="gerund">
+            Leyendo
+        </value>
+    </translated>
+
+    <translated value="hello_world">
+        <value>¡Hola, mundo!</value>
+    </translated>
+
+    <translated value="presentation">
+        <value>¡Mi nombre es $1!</value>
+    </translated>
+
+    <translated value="multi_line_message">
+        <value>
+            ¡Bienvenido a nuestra plataforma!
+            Estamos emocionados de tenerte aquí, $1.
+            Si tienes alguna pregunta, no dudes en contactar a nuestro equipo
+            de soporte en $2.
+            ¡Hagamos de este viaje un gran éxito!
+        </value>
+    </translated>
+
+</language>

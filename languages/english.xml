@@ -1,0 +1,34 @@
+ <language value="english">
+        <translated value="hello_world">
+            <value>Hello, World!</value>
+        </translated>
+
+        <translated value="presentation">
+            <value>My name is $1!</value>
+        </translated>
+
+        <translated value="multi_line_message">
+            <value>
+                Welcome to our platform!
+                We are excited to have you here, $1.
+                If you have any questions, feel free to reach out to our support team at $2.
+                Let's make this journey a great success!
+            </value>
+        </translated>
+
+        <translated value="read">
+            <value tense="infinitive">
+                Read
+            </value>
+            <value tense="past">
+                Read
+            </value>
+            <value tense="participle">
+                Read
+            </value>
+            <value tense="gerund">
+                Reading
+            </value>
+        </translated>
+
+    </language>

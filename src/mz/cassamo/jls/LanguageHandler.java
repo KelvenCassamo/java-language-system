@@ -1,5 +1,8 @@
 package mz.cassamo.jls;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import org.xml.sax.Attributes;
@@ -57,6 +60,8 @@ class LanguageHandler extends DefaultHandler {
     private boolean isValueElement = false;
     private String tenseKey = null;
 
+
+
     /**
      * Stores translations for all languages as nested maps.
      */
@@ -66,9 +71,23 @@ class LanguageHandler extends DefaultHandler {
      */
     private StringBuilder currentValueBuilder;
 
+    private String currentFilePath;
+
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        if (qName.equalsIgnoreCase("language")) {
+          if (qName.equalsIgnoreCase("import-language")) {
+
+            // Processa a tag <import-language file="..."/>
+            String importFilePath = attributes.getValue("file");
+            if (importFilePath != null) {
+                // Chama o método recursivamente para carregar e processar o arquivo de importação
+                try {
+                    initFromFile(importFilePath);
+                } catch (IOException e) {
+                    System.err.println("Error while importing file: " + importFilePath);
+                }
+            }
+        } else if (qName.equalsIgnoreCase("language")) {
             currentLanguage = attributes.getValue("value");
             translations.putIfAbsent(currentLanguage, new HashMap<>());
             tenseKey = null;
@@ -177,4 +196,30 @@ class LanguageHandler extends DefaultHandler {
     public boolean existsLanguage(String language) {
         return translations.containsKey(language);
     }
+
+
+    /**
+     * Inicia o parsing de um arquivo XML, incluindo seus arquivos importados.
+     *
+     * @param xmlFilePath Caminho para o arquivo XML a ser processado
+     * @throws IOException Se houver erro ao processar o arquivo
+     */
+    public void initFromFile(String xmlFilePath) throws IOException {
+        currentFilePath = xmlFilePath; // Salva o caminho do arquivo atual
+
+        File file = new File(xmlFilePath);
+        if (!file.exists()) {
+            throw new IOException("File not found: " + xmlFilePath);
+        }
+
+        try (FileInputStream inputStream = new FileInputStream(file)) {
+            // Usando SAXParser para processar o XML
+            javax.xml.parsers.SAXParserFactory factory = javax.xml.parsers.SAXParserFactory.newInstance();
+            javax.xml.parsers.SAXParser saxParser = factory.newSAXParser();
+            saxParser.parse(inputStream, this);
+        } catch (Exception e) {
+            throw new IOException("Error while parsing file: " + xmlFilePath, e);
+        }
+    }
 }
+
