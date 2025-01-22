@@ -1,3 +1,6 @@
+<!-- Badges -->
+![Version](https://img.shields.io/github/v/tag/KelvenCassamo/java-language-system?label=Version&logo=github)
+![License](https://img.shields.io/github/license/KelvenCassamo/java-language-system)
 
 
 # Java Language System (JLS)
