@@ -84,7 +84,9 @@ class LanguageHandler extends DefaultHandler {
                 try {
                     initFromFile(importFilePath);
                 } catch (IOException e) {
-                    System.err.println("Error while importing file: " + importFilePath);
+                     if(LanguageSystem.isDebugMode()){
+                        System.err.println("Error while importing file: " + importFilePath);
+                    }
                 }
             }
         } else if (qName.equalsIgnoreCase("language")) {
