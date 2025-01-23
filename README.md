@@ -1,7 +1,10 @@
+<!-- Badges -->
+![Version](https://img.shields.io/github/v/tag/KelvenCassamo/java-language-system?label=Version&logo=github)
+![License](https://img.shields.io/github/license/KelvenCassamo/java-language-system)
 
-  
 
 # Java Language System (JLS)
+
 
 The **Java Language System (JLS)** is a Java library designed to facilitate the internationalization (i18n) of applications, enabling dynamic language management and text translation, **Swing** components, and **Widgets** on **Android**, based on XML files.
 
@@ -13,24 +16,28 @@ With JLS, you can:
 - Use dynamic placeholders (`$1`, `$2`, etc.) to create personalized messages.
 - Easily integrate translations into both desktop and mobile applications.
 
+
+### 🎉 **Modular Language import is now available starting from version 1.0.3!** 🎉
+[Click here](#211-importing-individual-language-files-available-from-version-103) to learn more about the Modular Language Import feature!
+
 ### **1. Installation**
 
 The **Java Language System (JLS)** can be easily integrated into your Java project, either by downloading the JAR file directly or by cloning the repository and compiling the source code.
 
-#### **1.1 Downloading the JAR**
+#### **1.1. Downloading the JAR**
 
 You can find the latest version of JLS in JAR format in the **Releases** section on GitHub. To do this, visit the releases page and download the JAR file:
 
 - **Find the latest version of the JAR here**: [JLS Releases Page](https://github.com/KelvenCassamo/java-language-system/releases)
 - Or, you can download the latest compiled JAR directly from the link below:
- [📦 Download the latest compiled JAR](https://github.com/KelvenCassamo/java-language-system/releases/download/v1.0.1/java-language-system-1.0.1.jar)
+ [📦 Download the latest compiled JAR](https://github.com/KelvenCassamo/java-language-system/releases/download/v1.0.3/java-language-system-1.0.3.jar)
 
 
 ### 2. Main Features
 
 The **Java Language System (JLS)** offers various features to facilitate the internationalization and translation of applications. 
 
-#### **2.1 Creating the translations**
+#### **2.1. Creating the translations**
 
 To configure the language system, start by creating translations in an XML file. Below is an example of a `languages.xml` file with translations in, for example **English** and **Portuguese**.
 ````xml
@@ -53,22 +60,79 @@ To configure the language system, start by creating translations in an XML file.
         </translated>
     </language>
 </languages>
+
+
 ````
 -   **Language keys** (e.g., `hello_world`, `presentation`) are identifiers for the text.
 -   **Placeholders** (e.g., `$1`) can dynamically insert values into the text.
+
+
+#### **2.1.1. Importing Individual Language Files** (Available from version 1.0.3)
+
+Starting from version **1.0.3**, the **Java Language System (JLS)** supports importing language definitions from individual files. This feature allows you to modularize your translations by splitting each language into a separate file.
+
+#### Example: Importing Individual Language Files
+
+To use this feature, you can reference external XML files for each language using the `<import-language>` tag. Here’s an example:
+
+```xml
+<languages>
+    <import-language file="languages/english.xml"/>
+    <import-language file="languages/portuguese.xml"/>
+    <import-language file="languages/spanish.xml"/>
+</languages>
+
+```
+Each imported file (`languages/english.xml`, `languages/portuguese.xml`, etc.) should follow the standard format for defining translations. Below is an example of how a language file should look:
+
+Example: `languages/english.xml`
+```xml
+<language value="english">
+    <translated value="hello_world">
+        <value>Hello, World!</value>
+    </translated>
+
+    <translated value="presentation">
+        <value>My name is $1!</value>
+    </translated>
+
+    <translated value="multi_line_message">
+        <value>
+            Welcome to our platform!
+            We are excited to have you here, $1.
+            If you have any questions, feel free to reach out to our support team at $2.
+            Let's make this journey a great success!
+        </value>
+    </translated>
+
+    <translated value="read">
+        <value tense="infinitive">Read</value>
+        <value tense="past">Read</value>
+        <value tense="participle">Read</value>
+        <value tense="gerund">Reading</value>
+    </translated>
+</language>
+
+```
+#### Compatibility
+This feature is available starting from version **1.0.3**. Ensure you are using this version or newer to take advantage of this functionality.
+
 
 #### **2.2. Structure of a `languages.xml` File**
 
 The `languages.xml` file contains translations for various languages and their respective text values. Below is a detailed table explaining each element and attribute in the file.
 
-
+|
 | **Element/Attribute** | **Description**                                                                                     | **Attributes**                      | **Example**                                    |
 |------------------------|----------------------------------------------------------------------------------------------------|--------------------------------------|------------------------------------------------|
 | `<languages>`          | Root element that contains all language definitions.                                               | None                                 | `<languages> ... </languages>`                 |
+| `<import-language>` | References an external XML file that contains the definitions for a specific language. | `file` (path to the language file) | `<import-language file="languages/english.xml"/>` |
 | `<language>`           | Represents a specific language and contains its translations.                                      | `value` (language code)              | `<language value="english"> ... </language>`   |
 | `<translated>`         | Defines a single translation entry, identified by a unique key.                                     | `value` (translation key)            | `<translated value="hello_world"> ... </translated>` |
 | `<value>`              | Specifies the actual translation text for a given key.                                             | None                                 | `<value>Hello, World!</value>`                 |
+| `<value>` | Specifies the actual translation text for a given key. Can optionally include tense information. Available from version 1.0.3. | `tense` *(optional)* (e.g., "infinitive", "past", "participle", "gerund") | `<value tense="infinitive">Read</value>`
 
+> **Note:** The `tense` attribute is available starting from **version 1.0.3**.
 
 
 #### **2.3. Attributes Details**
@@ -78,6 +142,13 @@ The `languages.xml` file contains translations for various languages and their r
 
 #### `<translated>` Attributes
 - **`value`**: The unique key for the translation (e.g., "hello_world", "presentation"). This key is used to reference the translation programmatically.
+#### `<value>` Attributes
+- **`tense`** *(optional, available from version 1.0.3)*: Specifies the grammatical tense of the translation. This attribute is used for verbs to define their tense. Supported values include: 
+	- `infinitive`: Represents the base form of the verb (e.g., "to read" or "read"). 
+	- `past`: Represents the past tense of the verb (e.g., "read" in English, "leu" in Portuguese). 
+	- `participle`: Represents the past participle of the verb (e.g., "read", "lido"). 
+	- `gerund`: Represents the gerund form of the verb (e.g., "reading", "lendo"). 
+
 
 
 
@@ -168,24 +239,76 @@ As an alternative, you can use the `LanguageSystem.format(text_content, ...place
 String translatedText = LanguageSystem.format(LanguageSystem.get("presentation", "My name is $1"), "Cassamo");
 ````
 
-#### **2.8. Support for Multiple Languages**
+#### **2.8. Word Translation with Specific Forms**
 
-JLS allows the inclusion of multiple languages in a single XML file, and switching between them can be done without altering the application’s source code. This makes it easy to add new languages and maintain translations in multilingual applications.
+In addition to translating full sentences or phrases, JLS also supports the translation of specific words, taking into account different grammatical forms (such as tense). This is useful when you need to translate individual words like verbs in different tenses (e.g., "read", "reading", "read" in the past tense).
 
-#### **Example of translation in multiple languages in XML:**
+You can use the `getWord` method to get the translation of a word, optionally specifying its form (such as "infinitive", "past", "participle", or "gerund").
+
+**Example of word translation with tense:**
+
+```java
+String translatedWord = LanguageSystem.getWord("read", "participle");
+```
+In the example above, the method returns the translation for the word **"read"** in the **participle** form. This allows you to handle specific translations for different verb forms.
+
+Example of translation with tense in `languages.xml`:
 ````xml
 <language value="english">
-    <translated value="hello_world">
-        <value>Hello, World!</value>
-    </translated>
-</language>
-
-<language value="portuguese">
-    <translated value="hello_world">
-        <value>Olá, mundo!</value>
+    <!-- The value="read" attribute represents the infinitive form of the verb. If you'd like to clarify, you can use "to read" instead. -->
+    <translated value="read">
+        <value tense="infinitive">Read</value> <!-- Infinitive form (without "to") -->
+        <value tense="past">Read</value>
+        <value tense="participle">Read</value>
+        <value tense="gerund">Reading</value>
     </translated>
 </language>
 ````
+
+In this case, the word **"read"** has different translations depending on the tense: **infinitive**, **past**, **participle**, and **gerund**. The `getWord` method allows you to select the appropriate translation based on the tense you need.
+#### Note on Usage:
+-   The `LanguageSystem.getWord` method provides a way to fetch the translation for specific words, considering different grammatical forms, which is especially useful for verbs.
+-   This method is available starting from **version 1.0.3** and supports the `tense` attribute for more accurate translations.
+
+#### **2.9. Support for Multiple Languages**
+
+JLS allows the inclusion of multiple languages in a single XML file, and switching between them can be done without altering the application’s source code. This makes it easy to add new languages and maintain translations in multilingual applications.
+
+Additionally, from version **1.0.3**, you can now take advantage of **importing separate language files** into your `languages.xml` file, which allows for a more modular approach. Instead of maintaining all translations in one file, you can organize them into smaller, language-specific files and import them into the main configuration file.
+
+This flexibility reduces the risk of a single, large file becoming overwhelming as your application grows in terms of languages and translations.
+
+#### **Example of translation in multiple languages in XML:**
+````xml
+<languages>
+	<language value="english">
+	    <translated value="hello_world">
+	        <value>Hello, World!</value>
+	    </translated>
+	</language>
+
+	<language value="portuguese">
+	    <translated value="hello_world">
+	        <value>Olá, mundo!</value>
+	    </translated>
+	</language>
+</languages>
+
+````
+
+#### New in version 1.0.3: Modular Language Import
+````xml
+<languages>
+    <import-language file="languages/english.xml"/>
+    <import-language file="languages/portuguese.xml"/>
+</languages>
+
+````
+
+### **Notes on Version 1.0.3 Updates:**
+
+1.  **Modular Language Support:** Instead of placing all language translations in one file, you can now import separate language files. This modular approach allows for better scalability and easier management of language files.
+2.  **Improved XML Structure:** With the new `import-language` element, you can link to external language files, making it simpler to manage and update translations, especially in large projects.
 
 
 ### 3. Practical Example
@@ -203,6 +326,13 @@ First, let's configure the language system by loading the translations from an X
         <translated value="presentation">
             <value>My name is $1!</value>
         </translated>
+        <translated value="read">
+            <!-- Adding tense information for verbs -->
+            <value tense="infinitive">Read</value>
+            <value tense="past">Read</value>
+            <value tense="participle">Read</value>
+            <value tense="gerund">Reading</value>
+        </translated>
     </language>
 
     <language value="portuguese">
@@ -212,8 +342,16 @@ First, let's configure the language system by loading the translations from an X
         <translated value="presentation">
             <value>O meu nome é $1!</value>
         </translated>
+        <translated value="read">
+            <!-- Adding tense information for verbs -->
+            <value tense="infinitive">Ler</value>
+            <value tense="past">Leu</value>
+            <value tense="participle">Lido</value>
+            <value tense="gerund">Lendo</value>
+       </translated>
     </language>
 </languages>
+
 ````
 
 
@@ -238,8 +376,15 @@ public class Example {
 
         // Displaying the translation for the "presentation" key with placeholder
         System.out.println(LanguageSystem.getf("presentation", "Cassamo"));  // Output: My name is Cassamo!
+
+        // Available starting from version 1.0.3: Displaying the translation for the "read" key with tense information
+        System.out.println(LanguageSystem.getWord("read", "participle"));  // Output: Read (participle form)
+
+        // If the tense is not specified, the default form (usually the infinitive) will be returned
+        System.out.println(LanguageSystem.getWord("read", null));  // Output: Read (infinitive form)
     }
 }
+
 
 ````
 
@@ -469,7 +614,11 @@ List of some public methods available in the `LanguageSystem` class. You will fi
 | `String get(String key)`                               | Retrieves the translated value for a specific key.                                                        | `key`: Translation key.                                                                              | Translated string or `null`.   |
 | `String get(String key, String default_value)`         | Retrieves the translation for a key, or a default value if the key is not found.                          | `key`: Translation key. <br> `default_value`: Fallback value.                                       | Translated string or fallback. |
 | `String getf(String key, String... values)`            | Retrieves and formats a translation string, replacing placeholders with values.                           | `key`: Translation key. <br> `values`: Values to replace placeholders.                              | Formatted translated string.   |
-
+| `String getWord(String key, String tense)` | Retrieves the translation of a word with a specific tense (e.g., infinitive, past, participle, gerund). | `key`: The translation key for the word. <br> `tense`: Optional. Tense to retrieve (e.g., "infinitive", "past", "participle", "gerund"). | The translated word, or null if not found. |
+|
+### **Note:** 
+- The method `getWord` is **available starting from version 1.0.3** and allows retrieving translations with a specific tense. If no tense is specified, the default (typically the infinitive) will be returned. 
+- This method is useful for handling words with multiple forms depending on the tense (e.g., verb conjugations).
 ---
 
 ### **5.4. String Formatting**
@@ -485,7 +634,7 @@ List of some public methods available in the `LanguageSystem` class. You will fi
 
 | **Method**                                              | **Description**                                                                                           | **Parameters**                                                                                      | **Returns**                    |
 |---------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|--------------------------------|
-| `void setDebugMode(boolean _debug)`                    | Enables or disables debug mode.                                                                           | `_debug`: `true` to enable debug mode, `false` to disable it.                                        | N/A                            |
+| `void setDebugMode(boolean _debug)`                    | Enables or disables debug mode.                                                                           | `_debug`: `true` to enable debug mode, `false` to disable it.                                        | `void`                           |
 | `boolean isDebugMode()`                                | Checks if debug mode is currently enabled.                                                                | None                                                                                               | `true` if debug mode is on.    |
 
 
@@ -505,7 +654,7 @@ The **XMLBuilder** is a class that simplifies the creation, manipulation, and st
 - **Automatic file creation**: If the XML file does not exist, it will be created.
 - **Standardized XML format**: Ensures compatibility and readability of the generated translation file.
 
-
+**Important Note**: As of version 1.0.3, XMLBuilder does **not fully support module-based imports**. The current implementation generates a single file instead of handling separate modules. Despite this limitation, it is still efficient for managing translations, especially for smaller applications or cases where module-based imports are not required.
 
 #### **6.2. Methods**
 
@@ -651,6 +800,5 @@ If you encounter issues using the **Java Language System (JLS)** or need assista
 
 -   If you need more direct support, send an email to my address: `kelvencassamo9@gmail.com`.
 
-**Follow me on :**
--  [Instagram](https://instagram.com/kelven.cassamo)
+
 
